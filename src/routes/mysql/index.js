@@ -1,16 +1,12 @@
-const fastify = require('fastify')()
-
-fastify.register(require('@fastify/mysql'), {
-  connectionString: 'mysql://root:edgar@localhost:3306/OpenBanking'
-})
 async function routes(app, options) {
     app.get("/", async (request, response) => {
-        fastify.mysql.query(
-            'SELECT * from products',
-            function onResult (err, response) {
-              reply.send(err || response)
-            }
-          )
+      try {
+        const result = await app.mysql.query('SELECT * from products');
+        response.send(result);
+      } catch (err) {
+        // Properly handle the error, for example, send a 500 status code
+        response.status(500).send({ error: 'Database query failed' });
+      }
     });
   }
   

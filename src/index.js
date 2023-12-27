@@ -1,5 +1,9 @@
 const fastify = require("fastify");
 const app = fastify({ logger: true });
+
+app.register(require('@fastify/mysql'), {
+  connectionString: 'mysql://root:mysql@localhost:3306/OpenBanking'
+})
 const dotenv = require("dotenv");
 dotenv.config();
 
