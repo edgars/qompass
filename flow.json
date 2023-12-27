@@ -1,0 +1,50 @@
+{
+    "flowName": "MySQLCustomers",
+    "inboundEndpoints": [
+        {
+            "type": "httpConnector",
+            "defaultPort": "9445",
+            "defaultEntryPath": "/customers",
+            "methods": [
+                {
+                    "httpMethod": "GET",
+                    "path": "/",
+                    "flow": [
+                        {
+                            "componentType": "query",
+                            "componentName": "qryGetCustomers",
+                            "dataMode": "SQL",
+                            "dataModeValue": "select cust_no, nom_compl_std from Cstomers",
+                            "dataMapping": [
+                                {
+                                    "source": "cust_no",
+                                    "destination": "customer_id",
+                                    "sourceFormula": "",
+                                    "destinationFormula": ""
+                                },
+                                {
+                                    "source": "nome_com",
+                                    "destination": "name",
+                                    "sourceFormula": "",
+                                    "destinationFormula": ""
+                                }
+                            ]
+                        },
+                        {
+                            "componentType": "responseDecorator",
+                            "headers": [
+                                {
+                                    "key": "x-completed-sql",
+                                    "value": true
+                                }
+                            ]
+                        },
+                        {
+                            "componentType": "responseOutbound"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
