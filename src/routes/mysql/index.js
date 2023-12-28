@@ -1,13 +1,18 @@
-async function routes(app, options) {
-    app.get("/", async (request, response) => {
-      try {
-        const result = await app.mysql.query('SELECT * from products');
-        response.send(result);
-      } catch (err) {
-        // Properly handle the error, for example, send a 500 status code
-        response.status(500).send({ error: 'Database query failed' });
-      }
+
+  async function routes(app, options) {
+    app.get("/", (request, reply) => {
+      return new Promise((resolve, reject) => {
+        app.mysql.query('SELECT product_id, product_master, product_name, product_details from products', (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      })
+      .then(result => reply.send(result))
+      .catch(err => reply.status(500).send({ error: 'Database query failed' }));
     });
-  }
+  }  
   
-  module.exports = routes;
+module.exports = routes;
