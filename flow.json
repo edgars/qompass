@@ -1,5 +1,25 @@
 {
     "flowName": "MySQLCustomers",
+    "globals": {
+        "connectors": [
+            {
+                "type": "mysqlConnector",
+                "url": "mysql://localhost:3333",
+                "vaultUser": "$USER",
+                "vaultPass": "$PASS",
+                "name": "mysqlCustomerConn"
+            },
+            {
+                "type": "salesforceConnector",
+                "url": "mysql://localhost:3333",
+                "vaultUser": "$USER",
+                "vaultPass": "$PASS",
+                "vaultToken": "$PASS",
+                "name": "mysqlCustomerConn"
+            }
+        ]
+
+    },
     "inboundEndpoints": [
         {
             "type": "httpConnector",
@@ -12,6 +32,7 @@
                     "flow": [
                         {
                             "componentType": "query",
+                            "connectionRef": "mysqlCustomerConn",
                             "componentName": "qryGetCustomers",
                             "dataMode": "SQL",
                             "dataModeValue": "select cust_no, nom_compl_std from Cstomers",
@@ -43,7 +64,22 @@
                             "componentType": "responseOutbound"
                         }
                     ]
+                },
+                {
+                    "httpMethod": "POST",
+                    "path": "/",
+                    "flow": [
+                        {
+                            "componentType": "staticResponse",
+                            "value": "some response that can be json or whatever, interesting for Mocks"
+                        },
+                        {
+                            "componentType": "responseOutbound"
+                        }
+
+                    ]
                 }
+
             ]
         }
     ]

@@ -8,7 +8,6 @@ app.register(require('@fastify/mysql'), {
   connectionString: 'mysql://root:mysql@localhost:3306/OpenBanking'
 })
 
-
 /**
  * Global SOAP Server
  */
@@ -37,7 +36,7 @@ app.listen({ port: port }, (err) => {
   }
 
   console.log("=".repeat(30));
-  console.log("🚀 Qompas - Integration Framework ")
+  console.log("🚀 Qcompas - Integration Framework ")
   console.log(`Server running on port ${port}`);
   console.log("=".repeat(30));
 });
