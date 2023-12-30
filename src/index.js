@@ -5,7 +5,7 @@ const app = fastify({ logger: true });
  * Global MySQL Connection to be injected in the app context
  */
 app.register(require('@fastify/mysql'), {
-  connectionString: 'mysql://root:mysql@localhost:3306/OpenBanking'
+ connectionString: 'mysql://root:mysql@localhost:3306/classicmodels'
 })
 
 /**

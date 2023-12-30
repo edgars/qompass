@@ -2,7 +2,7 @@
   async function routes(app, options) {
     app.get("/", (request, reply) => {
       return new Promise((resolve, reject) => {
-        app.mysql.query('SELECT product_id, product_master, product_name, product_details from products', (err, result) => {
+        app.mysql.query('SELECT customerNumber, customerName, contactLastName, contactFirstName, phone, addressLine2, city state, postalCode, country, salesRepEmployeeNumber, creditLimit FROM classicmodels.customers;', (err, result) => {
           if (err) {
             reject(err);
           } else {
